@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/boromisa/dcdr/client"
+	"github.com/boromisa/dcdr/config"
 	"simple-go-http-rest/api"
 	"fmt"
 	"net/http"
@@ -10,6 +12,9 @@ import (
 )
 
 func main() {
+
+
+
 	http.HandleFunc("/", index)
 	http.HandleFunc("/api/echo", api.EchoHandleFunc)
 	http.HandleFunc("/api/hello", api.HelloHandleFunc)
@@ -31,5 +36,23 @@ func port() string {
 
 func index(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "Welcome to Cloud Native Go (Update).")
+	config := &config.Config{
+	Watcher: config.Watcher{
+		OutputPath: "/etc/dcdr/dcdr.json",
+	},
+	}
+
+	client, err := client.New(config)
+
+	if err != nil {
+		panic(err)
+	}
+
+	// example-feature would be false
+	if client.IsAvailable("example-feature") {
+		fmt.Fprintf(w, "Welcome to Cloud Native Go (Update). flag enabled")
+	} else {
+		fmt.Fprintf(w, "Welcome to Cloud Native Go (Update). flag disabled")
+	}
+
 }

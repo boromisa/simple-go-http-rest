@@ -1,9 +1,9 @@
-FROM alpine:3.5
+FROM golang:1.11.1-alpine3.8
 
-COPY ./Cloud-Native-Go /app/Cloud-Native-Go
-RUN chmod +x /app/Cloud-Native-Go
+COPY ./simple-go-http-rest /app/simple-go-http-rest
+RUN chmod +x /app/simple-go-http-rest
 
 ENV PORT 8080
 EXPOSE 8080
 
-ENTRYPOINT /app/Cloud-Native-Go
+ENTRYPOINT /app/simple-go-http-rest
