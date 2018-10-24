@@ -1,24 +1,19 @@
 package main
 
 import (
-	"github.com/boromisa/dcdr/client"
-	"github.com/boromisa/dcdr/config"
-	"simple-go-http-rest/api"
 	"fmt"
+	"github.pie.apple.com/privatecloud/dcdr/client"
+	"github.pie.apple.com/privatecloud/dcdr/config"
 	"net/http"
 	"os"
-
-
+	"simple-go-http-rest/api"
 )
 
 func main() {
 
-
-
 	http.HandleFunc("/", index)
 	http.HandleFunc("/api/echo", api.EchoHandleFunc)
 	http.HandleFunc("/api/hello", api.HelloHandleFunc)
-	
 
 	http.HandleFunc("/api/books", api.BooksHandleFunc)
 	http.HandleFunc("/api/books/", api.BookHandleFunc)
@@ -37,9 +32,9 @@ func port() string {
 func index(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	config := &config.Config{
-	Watcher: config.Watcher{
-		OutputPath: "/etc/dcdr/dcdr.json",
-	},
+		Watcher: config.Watcher{
+			OutputPath: "/etc/dcdr/decider.json",
+		},
 	}
 
 	client, err := client.New(config)
@@ -49,10 +44,10 @@ func index(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// example-feature would be false
-	if client.IsAvailable("example-feature") {
-		fmt.Fprintf(w, "Welcome to Cloud Native Go (Update). flag enabled")
+	if client.IsAvailable("2pac/newish", *new(string)) {
+		fmt.Fprintf(w, "Daniel's exciting and looney world. flag enabled")
 	} else {
-		fmt.Fprintf(w, "Welcome to Cloud Native Go (Update). flag disabled")
+		fmt.Fprintf(w, "Daniel's sane and boring world. flag disabled")
 	}
 
 }

@@ -2,8 +2,9 @@ package api
 
 import (
 	"fmt"
-	"github.com/boromisa/dcdr/client"
-	"github.com/boromisa/dcdr/config"
+	"github.pie.apple.com/privatecloud/dcdr/client"
+	"github.pie.apple.com/privatecloud/dcdr/config"
+
 	"net/http"
 )
 
@@ -12,10 +13,9 @@ func EchoHandleFunc(w http.ResponseWriter, r *http.Request) {
 
 	config := &config.Config{
 		Watcher: config.Watcher{
-			OutputPath: "/etc/dcdr/dcdr.json",
+			OutputPath: "/etc/dcdr/decider.json",
 		},
 	}
-
 
 	client, err := client.New(config)
 
@@ -26,7 +26,7 @@ func EchoHandleFunc(w http.ResponseWriter, r *http.Request) {
 	message := r.URL.Query()["message"][0]
 
 	// example-feature would be false
-	if client.IsAvailable("example-feature") {
+	if client.IsAvailable("2pac/newish", message) {
 		message = message + " example-feature enabled"
 	} else {
 		message = message + " example-feature disabled"
